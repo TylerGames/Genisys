@@ -58,9 +58,9 @@ class PlayerInventory extends BaseInventory{
 	}
 
 	public function setHotbarSlotIndex($index, $slot){
-		if ($index >= 0 and $index < $this->getHotbarSize() and $slot >= -1 and $slot < $this->getSize()) {
+		/*if ($index >= 0 and $index < $this->getHotbarSize() and $slot >= -1 and $slot < $this->getSize()) {
 			$this->hotbar[$index] = $slot;//calculate has been done by client
-		}
+		}*/
 	}
 
 	public function getHeldItemIndex(){
@@ -414,7 +414,7 @@ class PlayerInventory extends BaseInventory{
 			if($player === $this->getHolder()){
 				for($i = 0; $i < $this->getHotbarSize(); ++$i){
 					$index = $this->getHotbarSlotIndex($i);
-					$pk->hotbar[] = $index <= -1 ? -1 : $index + $this->getHotbarSize();
+					$pk->hotbar[] = $index + $this->getHotbarSize();
 				}
 			}
 			if(($id = $player->getWindowId($this)) === -1 or $player->spawned !== true){
