@@ -3334,6 +3334,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 					//This means we're trying to drop our held item slot, or at least part
 					//of it.
 					$chosenSlot = clone $this->inventory->getItemInHand();
+					$chosenSlotIndex = $this->inventory->getHeldItemIndex();
 					if(!$chosenSlot->deepEquals($packet->item)){
 						/*
 						 * Player tried to drop something that wasn't the same as their held item
@@ -3352,6 +3353,7 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 						foreach($this->inventory->getHotbar() as $index){
 							if($this->inventory->getItem($index)->deepEquals($packet->item, true, true, true)){
 								$chosenSlot = $this->inventory->getItem($index);
+								$chosenSlotIndex = $index;
 								break;
 							}
 						}
@@ -3400,11 +3402,11 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 				 * Pairing will be required at a later date to ensure that players cannot cheat,
 				 * or duplicate items on a bad network.
 				 */
-				//if($replacementItem !== null){
-				//	//Not sure this will cut it, may have to actually remove it
-				//	$this->inventory->setItemInHand($replacementItem);
-				//	//$this->inventory->remove($dropItem);
-				//}
+				if($replacementItem !== null){
+					//Not sure this will cut it, may have to actually remove it
+					$this->inventory->setItem($chosenSlotIndex, $replacementItem);
+					//$this->inventory->remove($dropItem);
+				}
 				
 	
 				//$this->inventory->setItemInHand(Item::get(Item::AIR, 0, 1));
