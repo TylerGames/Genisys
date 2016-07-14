@@ -2127,65 +2127,6 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 
 		return -1;
 	}
-	
-	public function handleInventoryChange(Inventory $inventory, $slot, Item $newItem, Item $oldItem){
-		if($newItem->getCount() > $newItem->getMaxStackSize() or $newItem->getCount() < 0){
-			$this->inventory->sendContents($this);
-		}
-		if($newItem != $oldItem and count($this->windowIndex) > 0){ 
-			//Some inventory change has taken place, handle it, but only if there are windows open. -Fixes problems with picking items up- nope
-			if($newItem->getId() === Item::AIR and $oldItem->getId() !== Item::AIR){ //Selected a whole slot
-				$this->craftingInventory->addItem($oldItem);
-				$inventory->clear($slot);
-			}elseif($newItem->deepEquals($oldItem)){ //Slot count changed
-				if($newItem->getCount() > $oldItem->getCount()){ //Slot count increased
-					$amountAdded = $newItem->getCount() - $oldItem->getCount();
-					$itemsAdded = clone $newItem;
-					$itemsAdded->setCount($amountAdded);
-					if(!$this->craftingInventory->contains($itemsAdded)){
-						//Illegal action: player is attempting to place more items than they have.
-						//Set the item count back to what it was before.
-						$inventory->setItem($slot, $oldItem);
-						return;
-					}else{
-						$this->craftingInventory->removeItem($itemsAdded);
-						$inventory->setItem($slot, $newItem);
-					}
-				}else{
-					//Slot count decreased or stayed the same
-					$amountTaken = $oldItem->getCount() - $newItem->getCount();
-					if($amountTaken < 1){
-						//Somehow the slot count didn't change
-						$inventory->setItem($slot, $oldItem);
-						return;
-					}
-					$itemsTaken = clone $newItem;
-					$itemsTaken->setCount($amountTaken);
-					$this->craftingInventory->addItem($itemsTaken);
-					$inventory->setItem($slot, $newItem);
-				}
-				
-			}elseif($newItem->getId() !== Item::AIR and $oldItem->getId() === Item::AIR){ //Added a full slot
-				if(!$this->craftingInventory->contains($newItem)){ //Trying to add a slot that isn't in the crafting inventory
-					$inventory->setItem($slot, $oldItem);
-					return;
-				}
-				$this->craftingInventory->removeItem($newItem);
-				$inventory->setItem($slot, $newItem);
-			}elseif(!$newItem->deepEquals($oldItem)){ //Swapped a slot or slot changed
-				if($oldItem->deepEquals($newItem, false)){ //Durability change
-					return;
-				}
-				if(!$this->craftingInventory->contains($newItem)){ //Trying to place an item that's not in the crafting inventory
-					$inventory->setItem($slot, $oldItem);
-					return;
-				}else{ //Swap the slot
-					$this->craftingInventory->addItem($oldItem);
-					$inventory->setItem($slot, $newItem);
-				}
-			}
-		}
-	}
 
 	protected function processLogin(){
 		if(!$this->server->isWhitelisted(strtolower($this->getName()))){
