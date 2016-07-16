@@ -167,6 +167,12 @@ class EnchantmentLevelTable{
 				new Range(15, 55),
 				new Range(24, 74),
 				new Range(33, 83)
+				
+			],
+			Enchantment::TYPE_MINING_LUCKY => [
+				new Range(15, 55),
+				new Range(24, 74),
+				new Range(33, 83)
 			],
 
 			//Fishing
@@ -224,6 +230,7 @@ class EnchantmentLevelTable{
 			$enchantmentIds[] = Enchantment::TYPE_MINING_EFFICIENCY; 
 			$enchantmentIds[] = Enchantment::TYPE_MINING_SILK_TOUCH; 
 			$enchantmentIds[] = Enchantment::TYPE_MINING_FORTUNE; 
+			$enchantmentIds[] = Enchantment::TYPE_MINING_LUCKY;
 
 		}elseif($item->getId() == Item::BOW){
 			$enchantmentIds[] = Enchantment::TYPE_BOW_POWER; 
