@@ -97,6 +97,7 @@ class Enchantment{
 	const TYPE_BOW_INFINITY = 22;
 	const TYPE_FISHING_FORTUNE = 23;
 	const TYPE_FISHING_LURE = 24;
+	const TYPE_MINING_LUCKY = 25;
 
 	const RARITY_COMMON = 0;
 	const RARITY_UNCOMMON = 1;
@@ -160,6 +161,7 @@ class Enchantment{
 		self::$enchantments[self::TYPE_MINING_SILK_TOUCH] = new Enchantment(self::TYPE_MINING_SILK_TOUCH, "%enchantment.mining.silktouch", self::RARITY_UNCOMMON, self::ACTIVATION_EQUIP, self::SLOT_TOOL);
 		self::$enchantments[self::TYPE_MINING_DURABILITY] = new Enchantment(self::TYPE_MINING_DURABILITY, "%enchantment.mining.durability", self::RARITY_UNCOMMON, self::ACTIVATION_EQUIP, self::SLOT_TOOL);
 		self::$enchantments[self::TYPE_MINING_FORTUNE] = new Enchantment(self::TYPE_MINING_FORTUNE, "%enchantment.mining.fortune", self::RARITY_UNCOMMON, self::ACTIVATION_EQUIP, self::SLOT_TOOL);
+		self::$enchantments[self::TYPE_MINING_LUCKY] = new Enchantment(self::TYPE_MINING_LUCKY, "%enchantment.mining.lucky", self::RARITY_UNCOMMON, self::ACTIVATION_EQUIP, self::SLOT_TOOL);
 		self::$enchantments[self::TYPE_BOW_POWER] = new Enchantment(self::TYPE_BOW_POWER, "%enchantment.bow.power", self::RARITY_UNCOMMON, self::ACTIVATION_EQUIP, self::SLOT_BOW);
 		self::$enchantments[self::TYPE_BOW_KNOCKBACK] = new Enchantment(self::TYPE_BOW_KNOCKBACK, "%enchantment.bow.knockback", self::RARITY_UNCOMMON, self::ACTIVATION_EQUIP, self::SLOT_BOW);
 		self::$enchantments[self::TYPE_BOW_FLAME] = new Enchantment(self::TYPE_BOW_FLAME, "%enchantment.bow.flame", self::RARITY_UNCOMMON, self::ACTIVATION_EQUIP, self::SLOT_BOW);
@@ -248,6 +250,8 @@ class Enchantment{
 				return 5;
 			case self::TYPE_MINING_FORTUNE:
 				return 2;
+			case self::TYPE_MINING_LUCKY:
+				return 2;
 			case self::TYPE_BOW_POWER:
 				return 10;
 			case self::TYPE_BOW_KNOCKBACK:
@@ -290,6 +294,7 @@ class Enchantment{
 				return 1;
 			case self::TYPE_MINING_DURABILITY:
 			case self::TYPE_MINING_FORTUNE:
+			case self::TYPE_MINING_LUCKY:
 				return 3;
 			case self::TYPE_BOW_POWER:
 				return 5;
